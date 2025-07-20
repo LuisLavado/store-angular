@@ -10,5 +10,9 @@ import { ProductComponent } from '../../components/product/product.component';
   styleUrl: './list.component.css'
 })
 export class ListComponent {
+  fromChild(event: string): void {
+    console.log('We are in the parent component.', event);
+  }
+
 
 }
