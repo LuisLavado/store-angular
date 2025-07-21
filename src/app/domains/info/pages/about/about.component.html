@@ -1,0 +1,9 @@
+<div>
+  <input type="number" [value]="duration()" (input)="changeDuration($event)" />
+</div>
+<div>
+  <input type="text" [value]="message()" (input)="changeMessage($event)" />
+</div>
+<div>
+  <app-counter [duration]="duration()" [message]="message()" />
+</div>
