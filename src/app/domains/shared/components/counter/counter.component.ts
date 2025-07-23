@@ -1,4 +1,5 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, signal, SimpleChanges } from '@angular/core';
+import { sign } from 'crypto';
 
 @Component({
   selector: 'app-counter',
@@ -10,6 +11,8 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 export class CounterComponent {
   @Input({ required: true }) duration = 0;
   @Input({ required: true }) message = '';
+  counter = signal(0);
+  counterRef: number | undefined;
 
   constructor() {
     // No Async
@@ -24,6 +27,10 @@ export class CounterComponent {
     // every time an input changes
     console.log('ngOnChanges executed.', changes);
     console.log('-'.repeat(10));
+    const duration = changes['duration'];
+    if (duration && duration.currentValue !== duration.previousValue) {
+      this.doSomething();
+    }
   }
 
   ngOnInit() {
@@ -36,6 +43,11 @@ export class CounterComponent {
     console.log('-'.repeat(10));
     console.log('Duration:', this.duration);
     console.log('Message:', this.message);
+
+    this.counterRef = window.setInterval(() => {
+      console.log('run interval');
+      this.counter.update(statePrev => statePrev + 1);
+    }, this.duration);
   }
 
   ngAfterViewInit() {
@@ -49,5 +61,12 @@ export class CounterComponent {
   ngOnDestroy() {
     console.log('ngOnDestroy executed.');
     console.log('-'.repeat(10));
+    if (this.counterRef) {
+      window.clearInterval(this.counterRef);
+    }
+  }
+
+  doSomething() {
+    console.log('Doing something with duration:', this.duration);
   }
 }
