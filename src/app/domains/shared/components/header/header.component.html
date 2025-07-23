@@ -30,7 +30,9 @@
     </div>
     <div class="flex items-center">
       <button class="p-2 border rounded relative" (click)="toggleSideMenu()">
-        <div class="absolute -top-4 -left-4 mt-1 mr-1 text-xs font-bold text-white bg-red-500 rounded-full px-2 py-1">
+        <div
+          class="absolute -top-4 -left-4 mt-1 mr-1 text-xs font-bold text-white bg-red-500 rounded-full px-2 py-1"
+        >
           {{ cart.length }}
         </div>
         <svg
@@ -75,10 +77,23 @@
       </svg>
     </button>
   </div>
-  <div>
-    <div *ngFor="let item of cart">
-      <p>{{ item.title }}</p>
+  <div class="pt-4 flex flex-col">
+    <div
+      class="flex justify-between items-center space-y-2"
+      *ngFor="let item of cart"
+    >
+      <div class="flex space-x-2 items-center">
+        <img
+          [src]="item.image"
+          alt="{{ item.title }}"
+          class="w-6 h-6 object-cover rounded"
+        />
+        <h3>{{ item.title }}</h3>
+      </div>
       <p>{{ item.price }}</p>
+    </div>
+    <div class="mt-4 flex justify-end">
+      <p class="font-bold">Total:  {{ totalPrice() | currency }}</p>
     </div>
   </div>
 </div>
