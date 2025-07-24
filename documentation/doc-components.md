@@ -13,3 +13,4 @@ ng g c domains/info/pages/not-found
 
 ng g c domains/shared/components/layout
 
+ng g c domains/products/pages/product-detail

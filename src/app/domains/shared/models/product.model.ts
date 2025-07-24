@@ -1,3 +1,5 @@
+import { Category } from "./category.model";
+
 /**
  * id	number	The unique identifier of the product	No (auto-generated)
  * title	string	The name of the product	Yes
@@ -16,7 +18,7 @@ export interface Product {
     price: number;
     description: string;
     categoryId: number;
-    category: {},
+    category: Category,
     images: string[];
     slug: string;
     creationAt: string;
