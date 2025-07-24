@@ -11,3 +11,4 @@ ng g c domains/shared/components/header
 
 ng g c domains/info/pages/
 
+
