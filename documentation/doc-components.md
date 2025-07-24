@@ -9,6 +9,6 @@ ng g c domains/info/components/wave-audio
 
 ng g c domains/shared/components/header
 
-ng g c domains/info/pages/
+ng g c domains/info/pages/not-found
 
 
