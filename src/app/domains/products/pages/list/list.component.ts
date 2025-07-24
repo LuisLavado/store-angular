@@ -1,53 +1,59 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ProductComponent } from '../../components/product/product.component';
-import { Product } from '../../../shared/models/product.model';
+import { ProductComponent } from '@products/components/product/product.component';
+import { Product } from '@shared/models/product.model';
 
-import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { HeaderComponent } from '@shared/components/header/header.component';
+import { CartService } from '@shared/services/cart.service';
+import { ProductService } from '@shared/services/product.service';
+import { CategoryService } from '@shared/services/category.service';
+import { Category } from '@shared/models/category.model';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, ProductComponent, HeaderComponent],
+  imports: [CommonModule, ProductComponent],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
 export class ListComponent {
 
   products = signal<Product[]>([]);
-  cart = signal<Product[]>([]);
+  categories = signal<Category[]>([]);
+  private cartService = inject(CartService);
+  private productService = inject(ProductService);
+  private categoryService = inject(CategoryService);
 
-  constructor() {
-    const initialProducts: Product[] = [
-      {
-        id: Date.now(),
-        title: 'Product 1',
-        price: 100,
-        image: 'https://picsum.photos/640/640?r=11',
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: Date.now(),
-        title: 'Product 2',
-        price: 200,
-        image: 'https://picsum.photos/640/640?r=21',
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: Date.now(),
-        title: 'Product 3',
-        price: 300,
-        image: 'https://picsum.photos/640/640?r=31',
-        createdAt: new Date().toISOString()
-      }
-    ];
-
-    this.products.set(initialProducts);
+  ngOnInit() {
+    this.getProducts();
+    this.getCategories();
   }
 
   addToCart(product: Product): void {
-    this.cart.update(prevState => [...prevState, product]);
+    this.cartService.addToCart(product);
+  }
+
+  getProducts() {
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        this.products.set(products);
+      },
+      error: () => {
+        console.log('error getProducts');
+      }
+    });
+  }
+
+   getCategories() {
+    this.categoryService.getAll().subscribe({
+      next: (categories) => {
+        this.categories.set(categories);
+      },
+      error: () => {
+        console.log('error getCategories');
+      }
+    });
   }
 
 

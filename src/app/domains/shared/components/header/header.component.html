@@ -14,17 +14,29 @@
       <ul class="flex space-x-6">
         <li>
           <a
-            href="#"
-            class="block underline hover:underline"
+            routerLink="/"
+            routerLinkActive="underline"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="block hover:underline"
             aria-current="page"
             >Home</a
           >
         </li>
         <li>
-          <a href="#" class="block hover:underline">About</a>
+          <a
+            routerLink="/about"
+            class="block hover:underline"
+            routerLinkActive="underline"
+            >About</a
+          >
         </li>
         <li>
-          <a href="#" class="block hover:underline">Services</a>
+          <a
+            routerLink="/services"
+            class="block hover:underline"
+            routerLinkActive="underline"
+            >Services</a
+          >
         </li>
       </ul>
     </div>
@@ -33,7 +45,7 @@
         <div
           class="absolute -top-4 -left-4 mt-1 mr-1 text-xs font-bold text-white bg-red-500 rounded-full px-2 py-1"
         >
-          {{ cart.length }}
+          {{ cart().length }}
         </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -80,11 +92,11 @@
   <div class="pt-4 flex flex-col">
     <div
       class="flex justify-between items-center space-y-2"
-      *ngFor="let item of cart"
+      *ngFor="let item of cart()"
     >
       <div class="flex space-x-2 items-center">
         <img
-          [src]="item.image"
+          [src]="item.images[0]"
           alt="{{ item.title }}"
           class="w-6 h-6 object-cover rounded"
         />
@@ -93,7 +105,7 @@
       <p>{{ item.price }}</p>
     </div>
     <div class="mt-4 flex justify-end">
-      <p class="font-bold">Total:  {{ totalPrice() | currency }}</p>
+      <p class="font-bold">Total: {{ totalPrice() | currency }}</p>
     </div>
   </div>
 </div>

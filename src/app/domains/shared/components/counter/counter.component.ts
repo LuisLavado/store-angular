@@ -1,5 +1,4 @@
 import { Component, Input, signal, SimpleChanges } from '@angular/core';
-import { sign } from 'crypto';
 
 @Component({
   selector: 'app-counter',
