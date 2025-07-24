@@ -15,16 +15,28 @@
         <li>
           <a
             routerLink="/"
-            class="block underline hover:underline"
+            routerLinkActive="underline"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="block hover:underline"
             aria-current="page"
             >Home</a
           >
         </li>
         <li>
-          <a routerLink="/about" class="block hover:underline">About</a>
+          <a
+            routerLink="/about"
+            class="block hover:underline"
+            routerLinkActive="underline"
+            >About</a
+          >
         </li>
         <li>
-          <a routerLink="/services" class="block hover:underline">Services</a>
+          <a
+            routerLink="/services"
+            class="block hover:underline"
+            routerLinkActive="underline"
+            >Services</a
+          >
         </li>
       </ul>
     </div>
@@ -93,7 +105,7 @@
       <p>{{ item.price }}</p>
     </div>
     <div class="mt-4 flex justify-end">
-      <p class="font-bold">Total:  {{ totalPrice() | currency }}</p>
+      <p class="font-bold">Total: {{ totalPrice() | currency }}</p>
     </div>
   </div>
 </div>
