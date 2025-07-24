@@ -11,4 +11,5 @@ ng g c domains/shared/components/header
 
 ng g c domains/info/pages/not-found
 
+ng g c domains/shared/components/layout
 
